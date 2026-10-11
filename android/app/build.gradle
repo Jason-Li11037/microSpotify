@@ -70,4 +70,7 @@ dependencies {
 
     // android xml library
     implementation 'androidx.appcompat:appcompat:1.5.1'
+
+    // image
+    implementation("io.coil-kt:coil-compose:2.2.2")
 }
