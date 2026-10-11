@@ -1,0 +1,48 @@
+[
+  {
+    "id": 1,
+    "songs": [
+      {
+        "name": "Sample Tone A4",
+        "lyric": "Instrumental sine tone, no lyrics",
+        "src": "http://10.0.2.2:8080/songs/solo.mp3",
+        "length": "0:06"
+      },
+      {
+        "name": "Sample Tone C4",
+        "lyric": "Instrumental sine tone, no lyrics",
+        "src": "http://10.0.2.2:8080/songs/tone-c4.mp3",
+        "length": "0:05"
+      },
+      {
+        "name": "Sample Tone D4",
+        "lyric": "Instrumental sine tone, no lyrics",
+        "src": "http://10.0.2.2:8080/songs/tone-d4.mp3",
+        "length": "0:04"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "songs": [
+      {
+        "name": "Sample Tone E4",
+        "lyric": "Instrumental sine tone, no lyrics",
+        "src": "http://10.0.2.2:8080/songs/tone-e4.mp3",
+        "length": "0:05"
+      },
+      {
+        "name": "Sample Tone F4",
+        "lyric": "Instrumental sine tone, no lyrics",
+        "src": "http://10.0.2.2:8080/songs/tone-f4.mp3",
+        "length": "0:06"
+      },
+      {
+        "name": "Sample Tone G4",
+        "lyric": "Instrumental sine tone, no lyrics",
+        "src": "http://10.0.2.2:8080/songs/tone-g4.mp3",
+        "length": "0:04"
+      }
+    ]
+  }
+]
