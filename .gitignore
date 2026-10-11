@@ -1,0 +1,32 @@
+# Local-only directory
+knowledge/
+
+# Gradle
+.gradle/
+build/
+.kotlin/
+
+# Android
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+
+# IDE
+.idea/
+*.iml
+.vscode/
+out/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets and signing
+.env
+.env.*
+*.jks
+*.keystore
+keystore.properties
