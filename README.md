@@ -5,7 +5,8 @@ A reproduction of a project I built before.
 ## Tech stack
 
 - Android app: Kotlin 1.7.0, Android Gradle Plugin 7.4.2, Jetpack Compose (UI 1.3.2,
-  Material 1.2.0), Coil 2.2.2; compileSdk 33, minSdk 23
+  Material 1.2.0), Material Components 1.7.0, Navigation 2.5.3, Coil 2.2.2;
+  compileSdk 33, minSdk 23
 - Backend: Kotlin 1.9.25 on JDK 21, Ktor 2.3.12 (Netty engine, ContentNegotiation,
   kotlinx.serialization JSON)
 - Gradle (Groovy DSL for the Android app, Kotlin DSL for the backend and the exercises)
@@ -53,8 +54,8 @@ JAVA_HOME=/path/to/jdk-17 ./gradlew assembleDebug
 
 The APK is written to `android/app/build/outputs/apk/debug/app-debug.apk`. You can
 also open the `android/` folder in Android Studio and run the app on an emulator.
-At this stage the app shows one album cover loaded from the web and does not call the
-backend yet.
+At this stage the app shows a bottom navigation bar with two placeholder screens (Home
+and Favorite) and does not call the backend yet.
 
 ### Run the Kotlin 101 exercise
 
@@ -78,7 +79,7 @@ gradle run
 - [x] Backend: routes, feed, playlists and songs
 - [x] Kotlin 101 exercise
 - [x] Android app skeleton, lifecycle and Compose basics
-- [ ] Bottom navigation
+- [x] Bottom navigation
 - [ ] Retrofit and Hilt
 - [ ] Home screen
 - [ ] Playlist screen
