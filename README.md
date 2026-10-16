@@ -5,8 +5,8 @@ A reproduction of a project I built before.
 ## Tech stack
 
 - Android app: Kotlin 1.7.0, Android Gradle Plugin 7.4.2, Jetpack Compose (UI 1.3.2,
-  Material 1.2.0), Material Components 1.7.0, Navigation 2.5.3, Coil 2.2.2;
-  compileSdk 33, minSdk 23
+  Material 1.2.0), Material Components 1.7.0, Navigation 2.5.3, Coil 2.2.2,
+  Retrofit 2.9.0 with Gson, Hilt 2.44; compileSdk 33, minSdk 23
 - Backend: Kotlin 1.9.25 on JDK 21, Ktor 2.3.12 (Netty engine, ContentNegotiation,
   kotlinx.serialization JSON)
 - Gradle (Groovy DSL for the Android app, Kotlin DSL for the backend and the exercises)
@@ -28,7 +28,10 @@ A reproduction of a project I built before.
 ### Requirements
 
 - JDK 21 for the backend and the exercises
-- JDK 17 and the Android SDK (platform 33, build-tools 30.0.3) for the Android app
+- JDK 17 and the Android SDK (platform 33, build-tools 30.0.3) for the Android app. A newer JDK
+  such as 21 does not work: the annotation processing step (kapt, used by Hilt) fails with an
+  `IllegalAccessError`. In Android Studio, set Settings > Build, Execution, Deployment > Build
+  Tools > Gradle > Gradle JDK to a JDK 17
 - Gradle 8.x, only for the exercises under `practice/` (the backend and the Android
   app ship their own Gradle wrapper)
 
@@ -55,7 +58,11 @@ JAVA_HOME=/path/to/jdk-17 ./gradlew assembleDebug
 The APK is written to `android/app/build/outputs/apk/debug/app-debug.apk`. You can
 also open the `android/` folder in Android Studio and run the app on an emulator.
 At this stage the app shows a bottom navigation bar with two placeholder screens (Home
-and Favorite) and does not call the backend yet.
+and Favorite). When it starts it also requests the home feed from the backend
+(`GET /feed` through `10.0.2.2:8080`) and writes the response to Logcat with the tag
+`lifecycle`. Start the backend before the app: the request has no error handling, so the
+app crashes when the server is not running. Plain HTTP is allowed for `10.0.2.2` only
+(`network_security_config.xml`).
 
 ### Run the Kotlin 101 exercise
 
@@ -80,7 +87,7 @@ gradle run
 - [x] Kotlin 101 exercise
 - [x] Android app skeleton, lifecycle and Compose basics
 - [x] Bottom navigation
-- [ ] Retrofit and Hilt
+- [x] Retrofit and Hilt
 - [ ] Home screen
 - [ ] Playlist screen
 - [ ] Favorites with Room
