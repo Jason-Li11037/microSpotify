@@ -59,14 +59,17 @@ JAVA_HOME=/path/to/jdk-17 ./gradlew assembleDebug
 
 The APK is written to `android/app/build/outputs/apk/debug/app-debug.apk`. You can
 also open the `android/` folder in Android Studio and run the app on an emulator.
-At this stage the app shows a bottom navigation bar with two placeholder screens (Home
-and Favorite). When it starts it also requests the home feed from the backend
+At this stage the app shows a bottom navigation bar with the Home screen and a placeholder
+Favorite screen. When it starts it also requests the home feed from the backend
 (`GET /feed` through `10.0.2.2:8080`) and writes the response to Logcat with the tag
-`lifecycle`. The Home tab loads the same feed through `HomeViewModel` and `HomeRepository`
-and logs the resulting state with the tag `HomeViewModel`; the Home screen itself is still
-empty. Start the backend before the app: the requests have no error handling, so the app
-crashes when the server is not running. Plain HTTP is allowed for `10.0.2.2` only
-(`network_security_config.xml`).
+`lifecycle`. The Home tab is written with Jetpack Compose (a `ComposeView` inside
+`HomeFragment`, dark colors). It loads the same feed through `HomeViewModel` and
+`HomeRepository`, logs the resulting state with the tag `HomeViewModel`, shows "Screen is
+loading..." and then one row of album covers per section. The repository waits 3 seconds
+before the request on purpose, so the loading text is visible. The covers are downloaded from
+the internet, so the emulator needs network access. Start the backend before the app: the
+requests have no error handling, so the app crashes when the server is not running. Plain
+HTTP is allowed for `10.0.2.2` only (`network_security_config.xml`).
 
 ### Run the exercises
 
@@ -99,7 +102,7 @@ see its README for the expected output.
 - [x] Bottom navigation
 - [x] Retrofit and Hilt
 - [x] Home repository and view model
-- [ ] Home screen
+- [x] Home screen
 - [ ] Playlist screen
 - [ ] Favorites with Room
 - [ ] Player
