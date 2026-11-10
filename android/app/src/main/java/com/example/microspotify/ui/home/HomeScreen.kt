@@ -1,5 +1,6 @@
 package com.example.microspotify.ui.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,32 +34,36 @@ import com.example.microspotify.datamodel.Album
 import com.example.microspotify.datamodel.Section
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel) {
-
-    // by is delegate, so we don't need to call uiState.value
-    // observe viewModel ui state, convert StateFlow to State, so that it can trigger recomposition when value changes
+fun HomeScreen(viewModel: HomeViewModel, onTap: (Album) -> Unit) {
+    // convert the data state in ViewModel to Compose state
     val uiState by viewModel.uiState.collectAsState()
-    HomeScreenContent(uiState = uiState)
+    HomeScreenContent(uiState = uiState, onTap = onTap)
+
 }
 
 @Composable
-private fun HomeScreenContent(uiState: HomeUiState) {
+fun HomeScreenContent(uiState: HomeUiState, onTap: (Album) -> Unit) {
     LazyColumn(modifier = Modifier.padding(16.dp)) {
         item {
             HomeScreenHeader()
         }
-
         when {
             uiState.isLoading -> {
                 item {
-                    LoadingSection(text = stringResource(id = R.string.screen_loading))
-                }
-            }
-            else -> {
-                items(uiState.feed) { item ->
-                    AlbumSection(section = item)
+                    LoadingSection(
+                        text = stringResource(id = R.string.screen_loading)
+                    )
                 }
 
+            }
+
+            else -> {
+                items(uiState.feed) { section ->
+                    AlbumSection(
+                        section = section,
+                        onTap = onTap
+                    )
+                }
             }
         }
 
@@ -66,7 +71,7 @@ private fun HomeScreenContent(uiState: HomeUiState) {
 }
 
 @Composable
-private fun AlbumSection(section: Section) {
+private fun AlbumSection(section: Section, onTap: (Album) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -82,41 +87,44 @@ private fun AlbumSection(section: Section) {
             modifier = Modifier.padding(top = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(section.albums) { item ->
-                AlbumCover(album = item)
+            items(section.albums) { album ->
+                AlbumCover(
+                    album = album,
+                    onTap = onTap
+                )
             }
         }
     }
 }
 
 @Composable
-private fun AlbumCover(album: Album) {
-    Column {
+fun AlbumCover(album: Album, onTap: (Album) -> Unit) {
+    Column(modifier = Modifier.clickable {
+        onTap(album)
+    }) {
         Box(modifier = Modifier.size(160.dp)) {
-
-            // need add agent to avoid 403 error
+            // https://upload.wikimedia.org/wikipedia/en/d/d1/Stillfantasy.jpg
             AsyncImage(
+                modifier = Modifier.fillMaxSize(),
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(album.cover)
                     .addHeader("User-Agent", "Mozilla/5.0 (Android Emulator) Chrome/120.0").build(),
                 contentDescription = null,
-                modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.FillBounds
             )
             Text(
                 text = album.name,
                 color = Color.White,
                 modifier = Modifier
-                    .padding(bottom = 4.dp, start = 2.dp)
-                    .align(Alignment.BottomStart),
+                    .padding(start = 2.dp, bottom = 4.dp)
+                    .align(Alignment.BottomStart)
             )
         }
-
         Text(
             text = album.artists,
-            modifier = Modifier.padding(top = 4.dp),
-            style = MaterialTheme.typography.body2.copy(fontWeight = FontWeight.Bold),
             color = Color.LightGray,
+            modifier = Modifier.padding(top = 4.dp, start = 2.dp),
+            style = MaterialTheme.typography.body2.copy(fontWeight = FontWeight.Bold)
         )
     }
 }
@@ -134,13 +142,14 @@ private fun LoadingSection(text: String) {
 
 @Composable
 fun HomeScreenHeader() {
-    Column {
+    Column(
+    ) {
         Text(
-//            modifier = Modifier.padding(bottom = 16.dp),
             text = stringResource(id = R.string.menu_home),
             style = MaterialTheme.typography.h4,
             color = Color.White
         )
         Spacer(modifier = Modifier.height(16.dp))
     }
+
 }
