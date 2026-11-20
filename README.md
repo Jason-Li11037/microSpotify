@@ -5,7 +5,7 @@ A reproduction of a project I built before.
 ## Tech stack
 
 - Android app: Kotlin 1.7.0, Android Gradle Plugin 7.4.2, Jetpack Compose (UI 1.3.2,
-  Material 1.2.0), Material Components 1.7.0, Navigation 2.5.3, Coil 2.2.2,
+  Material 1.2.0), Material Components 1.7.0, Navigation 2.5.3 with Safe Args, Coil 2.2.2,
   Retrofit 2.9.0 with Gson, Hilt 2.44, ViewModel with coroutines and StateFlow (lifecycle 2.5.1);
   compileSdk 33, minSdk 23
 - Backend: Kotlin 1.9.25 on JDK 21, Ktor 2.3.12 (Netty engine, ContentNegotiation,
@@ -69,7 +69,9 @@ loading..." and then one row of album covers per section. The repository waits 3
 before the request on purpose, so the loading text is visible. The covers are downloaded from
 the internet, so the emulator needs network access. Start the backend before the app: the
 requests have no error handling, so the app crashes when the server is not running. Plain
-HTTP is allowed for `10.0.2.2` only (`network_security_config.xml`).
+HTTP is allowed for `10.0.2.2` only (`network_security_config.xml`). Tapping an album cover
+logs its name with the tag `HomeFragment` and opens the Playlist screen, which is still empty
+and logs the album it received with the tag `PlaylistFragment`.
 
 ### Run the exercises
 
@@ -103,6 +105,7 @@ see its README for the expected output.
 - [x] Retrofit and Hilt
 - [x] Home repository and view model
 - [x] Home screen
+- [x] Album tap and navigation to the Playlist screen with Safe Args
 - [ ] Playlist screen
 - [ ] Favorites with Room
 - [ ] Player

@@ -1,6 +1,7 @@
 package com.example.microspotify.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.compose.material.darkColors
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.microspotify.R
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +27,11 @@ class HomeFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
                 MaterialTheme(colors = darkColors()){
-                    HomeScreen(viewModel)
+                    HomeScreen(viewModel, onTap = {
+                        Log.d("HomeFragment", "We tapped ${it.name}")
+                        val direction = HomeFragmentDirections.actionHomeFragmentToPlaylistFragment(it)
+                        findNavController().navigate(directions = direction)
+                    })
                 }
             }
         }
